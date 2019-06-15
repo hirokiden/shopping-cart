@@ -53,34 +53,39 @@ python shopping_cart.py'''
 # SECTION INPUT
 
 
+# Professor Rossetti's suggested if else loop, (try block)
+
 from datetime import datetime #Taken from stackoverflow
 
 total_price = 0
 selected_ids = []
 
+
 while True:
-    selected_id = input("Please input a product identifier, if you're finished enter 'DONE':" ) # the data input will always be a str
-#     if selected_id != "DONE": #works initially but breaks with subsequent non-"DONE" input entries
-#         selected_id = input("Please enter a valid product identifier, if you're finished enter 'DONE':" )
-    if selected_id == "DONE":
-        break
-#     if int(selected_id) > 20 or int(selected_id) <1:
-#         selected_id = input("Please enter a valid product identifier, if you're finished enter 'DONE':" )
-    if int(selected_id) >0 or int(selected_id) <21:
-        selected_ids.append(selected_id) # remember, this will be in string format
-        # print(selected_ids) --> designed to check that "id"s are being picked up via selected_ids list
-    else:
-        selected_id = input("Please enter a valid product identifier, if you're finished enter 'DONE':" )
+    selected_id = input("Please input a product identifier, if you're finished enter 'DONE':" )
     
-# CART CONTENTS WITH ASSOCIATED PRICE
+#     try converting the input (that is string) into integer
+#  try: except: incorpoation
+    
+    if selected_id == "DONE":
+        break # stops the loop
+    if selected_id.isdigit() == False: # Attributed this section to Harrison Grubb's advice, also https://www.tutorialspoint.com/python/string_isdigit.htm
+        print("Please enter numbers, not text. (From 1~20)")
+    elif int(selected_id) > 0 and int(selected_id) < 21: # Attribute this section loop to Prof. Rossetti
+        selected_ids.append(selected_id)
+    else:
+        print("Invalid Input, please enter a valid input. (From 1~20)")
+        next # proceeds into the next iteration of the loop (OK to omit in this basic example because there is no more code following it inside the loop before the loop repeats)
+
+# print(selected_ids)
+# print(len(selected_ids))
+
+    
         
 print("-------------------------------------------------------------------------------------------------------------------------")        
 print("GREEN FOODS GROCERY")
 print("WWW.GREEN-FOODS-GROCERY.COM")
 print("-------------------------------------------------------------------------------------------------------------------------") 
-
-# WEB, PHONE, ACTUAL TODAY'S DATE AND TIME
-
 print("CHECKOUT AT:", datetime.now().strftime('%Y-%m-%d %H:%M:%S')) # This section is derived from stackoverflow date function
 print("-------------------------------------------------------------------------------------------------------------------------")
 print("SELECTED PRODUCTS:")
@@ -99,10 +104,6 @@ for selected_id in selected_ids: # basic tutorials derived from Prof. Rossetti's
     product_price = matching_product["price"]
     print(product_name + " " + "$(" + str("{0:.2f}".format(product_price)) + ")" )
         # Make sure to pring the display component with product name and associated price
-
-
-
-# SUBTOTAL, SALES TAX, GRAND TOTAL
 
 print("-------------------------------------------------------------------------------------------------------------------------")
 print("SUBTOTAL: $","{0:.2f}".format(total_price))
