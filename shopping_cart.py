@@ -1,3 +1,5 @@
+# Instructions on running this script, go to ----> LINE 40
+
 # shopping_cart.py
 
 #from pprint import pprint
@@ -120,3 +122,4 @@ print("THANK YOU FOR SHOPPING WITH US, PLEASE COME AGAIN!")
 print("-------------------------------------------------------------------------------------------------------------------------")
 
 # MESSAGE WITH CUSTOMER EMAIL SO THAT RECEIPT IS EMAILED BACK TO CUSTOMER
+
