@@ -47,7 +47,7 @@ conda activate shopping-env
 
 pip install pytest
 
-PYTHON comamand --> 
+PYTHON command --> 
 
 python shopping_cart.py'''
 
