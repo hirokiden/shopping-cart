@@ -80,7 +80,7 @@ while True:
     
     if selected_id == "DONE":
         break # stops the loop
-    if selected_id.isdigit() == False: # Attributed this section to classmate Harrison Grubb's advice, 
+    if selected_id.isdigit() == False: # Attributed this line of code concept to classmate Harrison Grubb's advice, 
         # more details located from https://www.tutorialspoint.com/python/string_isdigit.htm, script concept borrowed from website after research
         print("Please enter numbers, not text. (From 1~20)")
     elif int(selected_id) > 0 and int(selected_id) < 21: # Attribute this section loop to Prof. Rossetti
