@@ -139,6 +139,9 @@ print("-------------------------------------------------------------------------
 
 # MESSAGE WITH CUSTOMER EMAIL SO THAT RECEIPT IS AUTO - EMAILED BACK TO CUSTOMER
 
+# Note for professor --> was able to send email with visual, greeting and total cost including tax 
+# However, faced difficulties in sending each product line with associated price 
+
 
 # import os
 # import pprint
