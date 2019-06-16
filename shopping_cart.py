@@ -41,6 +41,8 @@ products = [
 
 conda create -n shopping-env python=3.7 # (first time only)
 
+pip install sendgrid==6.0.5
+
 conda activate shopping-env
 
 pip install pytest
@@ -57,29 +59,38 @@ python shopping_cart.py'''
 
 # Professor Rossetti's suggested if else loop, (try block)
 
+
+import os
+import pprint
+from dotenv import load_dotenv
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 from datetime import datetime #Taken from stackoverflow
 
 total_price = 0
 selected_ids = []
 
 
+
 while True:
     selected_id = input("Please input a product identifier, if you're finished enter 'DONE':" )
     
-#     try converting the input (that is string) into integer
-#  try: except: incorpoation
+#  try converting the input (that is string) into integer
+#  try: except: incorporation as a potential alternative
     
     if selected_id == "DONE":
         break # stops the loop
-    if selected_id.isdigit() == False: # Attributed this section to Harrison Grubb's advice, also https://www.tutorialspoint.com/python/string_isdigit.htm
+    if selected_id.isdigit() == False: # Attributed this section to Harrison Grubb's advice, 
+        # more details located from https://www.tutorialspoint.com/python/string_isdigit.htm, script borrowed from website after research
         print("Please enter numbers, not text. (From 1~20)")
     elif int(selected_id) > 0 and int(selected_id) < 21: # Attribute this section loop to Prof. Rossetti
+        # this ensures that only integers from 1 to 20 is valid
         selected_ids.append(selected_id)
     else:
         print("Invalid Input, please enter a valid input. (From 1~20)")
         next # proceeds into the next iteration of the loop (OK to omit in this basic example because there is no more code following it inside the loop before the loop repeats)
 
-# print(selected_ids)
+# print(selected_ids) --> these were included for testing processes, can confirm that the loop works well
 # print(len(selected_ids))
 
     
@@ -121,5 +132,63 @@ print("-------------------------------------------------------------------------
 print("THANK YOU FOR SHOPPING WITH US, PLEASE COME AGAIN!")
 print("-------------------------------------------------------------------------------------------------------------------------")
 
-# MESSAGE WITH CUSTOMER EMAIL SO THAT RECEIPT IS EMAILED BACK TO CUSTOMER
 
+
+
+
+# MESSAGE WITH CUSTOMER EMAIL SO THAT RECEIPT IS AUTO - EMAILED BACK TO CUSTOMER
+
+
+# import os
+# import pprint
+# from dotenv import load_dotenv
+# from sendgrid import SendGridAPIClient
+# from sendgrid.helpers.mail import Mail
+
+# d-9fd75bfad7a740e7a1716705c95f4f0b --> example receipt template code from sendgrid
+
+
+load_dotenv()
+
+SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY", "OOPS, please set env var called 'SENDGRID_API_KEY'")
+SENDGRID_TEMPLATE_ID = os.environ.get("SENDGRID_TEMPLATE_ID", "OOPS, please set env var called 'SENDGRID_TEMPLATE_ID'")
+MY_ADDRESS = os.environ.get("MY_EMAIL_ADDRESS", "OOPS, please set env var called 'MY_EMAIL_ADDRESS'")
+
+#print("API KEY:", SENDGRID_API_KEY)
+#print("TEMPLATE ID:", SENDGRID_TEMPLATE_ID)
+#print("EMAIL ADDRESS:", MY_ADDRESS)
+
+client = SendGridAPIClient(SENDGRID_API_KEY) #> <class 'sendgrid.sendgrid.SendGridAPIClient>
+print("CLIENT:", type(client))
+
+subject = "Your Receipt from the GREEN FOODS GROCERY"
+
+template_data = {
+    "total_price_usd": grand_total,
+    "human_friendly_timestamp": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+    "this.name": product_name 
+    
+} # or construct this dictionary dynamically based on the results of some other process :-D
+
+client = SendGridAPIClient(SENDGRID_API_KEY)
+print("CLIENT:", type(client))
+
+message = Mail(from_email=MY_ADDRESS, to_emails=MY_ADDRESS, subject=subject)
+
+print("MESSAGE:", type(message))
+
+message.template_id = SENDGRID_TEMPLATE_ID
+
+message.dynamic_template_data = template_data
+
+
+try:
+    response = client.send(message)
+
+    print("RESPONSE:", type(response)) #> <class 'python_http_client.client.Response'>
+    print(response.status_code) #> 202 indicates SUCCESS  --> email correctly sends with no issues
+    print(response.body)
+    print(response.headers)
+
+except Exception as e:
+    print("OOPS", e)
