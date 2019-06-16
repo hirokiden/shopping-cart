@@ -80,8 +80,8 @@ while True:
     
     if selected_id == "DONE":
         break # stops the loop
-    if selected_id.isdigit() == False: # Attributed this section to Harrison Grubb's advice, 
-        # more details located from https://www.tutorialspoint.com/python/string_isdigit.htm, script borrowed from website after research
+    if selected_id.isdigit() == False: # Attributed this section to classmate Harrison Grubb's advice, 
+        # more details located from https://www.tutorialspoint.com/python/string_isdigit.htm, script concept borrowed from website after research
         print("Please enter numbers, not text. (From 1~20)")
     elif int(selected_id) > 0 and int(selected_id) < 21: # Attribute this section loop to Prof. Rossetti
         # this ensures that only integers from 1 to 20 is valid
@@ -121,7 +121,8 @@ for selected_id in selected_ids: # basic tutorials derived from Prof. Rossetti's
 print("-------------------------------------------------------------------------------------------------------------------------")
 print("SUBTOTAL: $","{0:.2f}".format(total_price))
 ny_sales_tax = 0.0876 #8.875% is the NYC combined rate
-tax = "{0:.2f}".format(total_price * ny_sales_tax) #Make sure to format with digits to avoid additional decimals
+tax = "{0:.2f}".format(total_price * ny_sales_tax) 
+#Make sure to format with digits to avoid additional decimals and keep hundredth value in case of 0 eg. $3.50
 print("NYC TAX $:", tax)
 grand_total = "{0:.2f}".format(total_price + (total_price * ny_sales_tax))
 print("TOTAL $:", grand_total)
