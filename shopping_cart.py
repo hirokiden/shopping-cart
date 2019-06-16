@@ -167,7 +167,9 @@ subject = "Your Receipt from the GREEN FOODS GROCERY"
 template_data = {
     "total_price_usd": grand_total,
     "human_friendly_timestamp": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-    "this.name": product_name 
+    "products": [ 
+        product_name 
+        ] 
     
 } # or construct this dictionary dynamically based on the results of some other process :-D
 
