@@ -71,6 +71,10 @@ total_price = 0
 selected_ids = []
 
 
+#Prior to getting started, the following code will ensure that the time stamp will be easy to read with pm and am adjustment
+date_time = datetime.now().strftime("%m/%d/%Y, %I:%M:%S%P\n")
+
+
 
 while True:
     selected_id = input("Please input a product identifier, if you're finished enter 'DONE':" )
@@ -99,7 +103,7 @@ print("-------------------------------------------------------------------------
 print("GREEN FOODS GROCERY")
 print("WWW.GREEN-FOODS-GROCERY.COM")
 print("-------------------------------------------------------------------------------------------------------------------------") 
-print("CHECKOUT AT:", datetime.now().strftime('%Y-%m-%d %H:%M:%S')) # This section is derived from stackoverflow date function
+print("CHECKOUT AT:", date_time)  # This section is derived from stackoverflow date function
 print("-------------------------------------------------------------------------------------------------------------------------")
 print("SELECTED PRODUCTS:")
 
@@ -169,7 +173,7 @@ subject = "Your Receipt from the GREEN FOODS GROCERY"
 
 template_data = {
     "total_price_usd": grand_total,
-    "human_friendly_timestamp": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+    "human_friendly_timestamp": date_time,
     "products": [ 
         product_name 
         ] 
