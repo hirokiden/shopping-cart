@@ -120,7 +120,7 @@ for selected_id in selected_ids: # basic tutorials derived from Prof. Rossetti's
     product_name = str(matching_product["name"])
     product_price = matching_product["price"]
     print(product_name + " " + "$(" + str("{0:.2f}".format(product_price)) + ")" )
-        # Make sure to pring the display component with product name and associated price
+        # Make sure to print the display component with product name and associated price
 
 print("-------------------------------------------------------------------------------------------------------------------------")
 print("SUBTOTAL: $","{0:.2f}".format(total_price))
